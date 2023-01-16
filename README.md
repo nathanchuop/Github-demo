@@ -1,6 +1,6 @@
 # libhal-starter
 
-# 🧰 Setup
+## 🧰 Setup
 
 1. [Setup libhal tools](https://libhal.github.io/prerequisites/)
 2. Add `libhal-trunk` remote conan server
@@ -18,7 +18,7 @@
     > revision mode which is required to use the `libhal-trunk` conan package
     > repository.
 
-# 🏗️ Building Demos
+## 🏗️ Building Demos
 
 Before building any demos, we have to make the build directory
 
@@ -28,7 +28,7 @@ mkdir build
 cd build
 ```
 
-## Debug Builds
+### Debug Builds
 
 Debug builds are helpful as they reduce the amount of compile time optimizations
 in order to make the debugging experience better. This comes at the cost of
@@ -42,7 +42,7 @@ cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
 make
 ```
 
-## Release Builds
+### Release Builds
 
 Release builds are harder to debug but are faster and have smaller binary sizes.
 
