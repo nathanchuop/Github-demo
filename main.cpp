@@ -11,6 +11,8 @@ main()
   using namespace hal::literals;
   using namespace std::literals;
 
+  // Initializing the data section initializes global and static variables and
+  // is required for the standard C library to run.
   hal::cortex_m::initialize_data_section();
   hal::cortex_m::system_control::initialize_floating_point_unit();
 
@@ -18,6 +20,8 @@ main()
   auto& clock = hal::lpc40xx::clock::get();
   auto cpu_frequency = clock.get_frequency(hal::lpc40xx::peripheral::cpu);
   static hal::cortex_m::dwt_counter steady_clock(cpu_frequency);
+
+  // Get an output pin to use as the LED pin control
   auto& led_pin = hal::lpc40xx::output_pin::get<1, 18>().value();
 
   while (true) {
