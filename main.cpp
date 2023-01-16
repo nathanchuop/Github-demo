@@ -1,11 +1,8 @@
 #include <libhal-armcortex/dwt_counter.hpp>
 #include <libhal-armcortex/startup.hpp>
 #include <libhal-armcortex/system_control.hpp>
-#include <libhal-lpc40xx/constants.hpp>
-#include <libhal-lpc40xx/input_pin.hpp>
 #include <libhal-lpc40xx/output_pin.hpp>
 #include <libhal-lpc40xx/system_controller.hpp>
-#include <libhal-lpc40xx/uart.hpp>
 #include <libhal-util/steady_clock.hpp>
 
 int
