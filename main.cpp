@@ -22,7 +22,7 @@ main()
   static hal::cortex_m::dwt_counter steady_clock(cpu_frequency);
 
   // Get an output pin to use as the LED pin control
-  auto& led_pin = hal::lpc40xx::output_pin::get<1, 18>().value();
+  auto& led_pin = hal::lpc40xx::output_pin::get<1, 10>().value();
 
   while (true) {
     (void)led_pin.level(true);
