@@ -38,7 +38,7 @@ To build with this level:
 
 ```
 conan install .. -s build_type=Debug --build=missing
-cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+cmake .. -D CMAKE_BUILD_TYPE=Debug -D CMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
 make
 ```
 
@@ -50,6 +50,6 @@ To build with this level:
 
 ```
 conan install .. -s build_type=Release --build=missing
-cmake .. -DCMAKE_BUILD_TYPE=Release" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+cmake .. -D CMAKE_BUILD_TYPE=Release" -D CMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
 make
 ```
