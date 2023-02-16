@@ -25,6 +25,7 @@ main()
   auto& led_pin = hal::lpc40xx::output_pin::get<1, 10>().value();
 
   while (true) {
+    // (void) is used here to get the compiler to ignore the return values.
     (void)led_pin.level(true);
     (void)hal::delay(steady_clock, 500ms);
     (void)led_pin.level(false);
