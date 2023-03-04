@@ -6,8 +6,7 @@
 2. Add `libhal-trunk` remote conan server
 
     ```bash
-    conan remote add libhal-trunk https://libhal.jfrog.io/artifactory/api/conan/trunk-conan --insert
-    conan config set general.revisions_enabled=True
+    conan remote add libhal-trunk https://libhal.jfrog.io/artifactory/api/conan/trunk-conan
     ```
 
     > The "trunk" repository represents the latest packaged code based on
@@ -18,17 +17,9 @@
     > revision mode which is required to use the `libhal-trunk` conan package
     > repository.
 
-## 🏗️ Building Demos
+## 🏗️ Building Project
 
-Before building any demos, we have to make the build directory
-
-```bash
-cd demos
-mkdir build
-cd build
-```
-
-### Debug Builds
+### Debug Build
 
 Debug builds are helpful as they reduce the amount of compile time optimizations
 in order to make the debugging experience better. This comes at the cost of
@@ -37,19 +28,15 @@ slower code and larger binary sizes.
 To build with this level:
 
 ```
-conan install .. -s build_type=Debug --build=missing
-cmake .. -D CMAKE_BUILD_TYPE=Debug -D CMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
-make
+conan build . -s build_type=Debug
 ```
 
-### Release Builds
+### Release Build
 
 Release builds are harder to debug but are faster and have smaller binary sizes.
 
 To build with this level:
 
 ```
-conan install .. -s build_type=Release --build=missing
-cmake .. -D CMAKE_BUILD_TYPE=Release" -D CMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
-make
+conan build . -s build_type=Release
 ```
