@@ -12,47 +12,102 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <libhal-armcortex/dwt_counter.hpp>
-#include <libhal-armcortex/startup.hpp>
-#include <libhal-armcortex/system_control.hpp>
-#include <libhal-lpc40/output_pin.hpp>
-#include <libhal-lpc40/system_controller.hpp>
-#include <libhal-util/steady_clock.hpp>
+#include <sys/stat.h>
+#include <unistd.h>
 
-int
-main()
+#include <cstdarg>
+#include <cstdint>
+#include <cstdio>
+#include <cstring>
+
+#include "application.hpp"
+
+int main()
 {
-  using namespace hal::literals;
-  using namespace std::literals;
+  // Step 1. Call the processor initializer. Setups up processor to run
+  // applications such as turning on a coprocessor, or copying memory from
+  // storage to memory.
+  if (!initialize_processor()) {
+    hal::halt();
+  }
 
-  // Initializing the data section initializes global and static variables and
-  // is required for the standard C library to run.
-  hal::cortex_m::initialize_data_section();
-  hal::cortex_m::system_control::initialize_floating_point_unit();
+  auto application_resource = initialize_platform();
 
-  // Create a hardware counter
-  auto& clock = hal::lpc40xx::clock::get();
-  auto cpu_frequency = clock.get_frequency(hal::lpc40xx::peripheral::cpu);
-  static hal::cortex_m::dwt_counter steady_clock(cpu_frequency);
+  if (!application_resource) {
+    hal::halt();
+  }
 
-  // Get an output pin to use as the LED pin control
-  auto& led_pin = hal::lpc40xx::output_pin::get<1, 10>().value();
+  auto is_finished = application(application_resource.value());
 
-  while (true) {
-    // (void) is used here to get the compiler to ignore the return values.
-    (void)led_pin.level(true);
-    (void)hal::delay(steady_clock, 500ms);
-    (void)led_pin.level(false);
-    (void)hal::delay(steady_clock, 500ms);
+  if (!is_finished) {
+    application_resource.value().reset();
+  } else {
+    hal::halt();
   }
 
   return 0;
 }
 
 namespace boost {
-void
-throw_exception([[maybe_unused]] std::exception const& p_error)
+void throw_exception([[maybe_unused]] std::exception const& p_error)
 {
   std::abort();
 }
-} // namespace boost
+}  // namespace boost
+
+extern "C"
+{
+  /// Dummy implementation of getpid
+  int _getpid_r()
+  {
+    return 1;
+  }
+
+  /// Dummy implementation of kill
+  int _kill_r(int, int)
+  {
+    return -1;
+  }
+
+  /// Dummy implementation of fstat, makes the assumption that the "device"
+  /// representing, in this case STDIN, STDOUT, and STDERR as character devices.
+  int _fstat_r([[maybe_unused]] int file, struct stat* status)
+  {
+    status->st_mode = S_IFCHR;
+    return 0;
+  }
+
+  int _write_r([[maybe_unused]] int file,
+               [[maybe_unused]] const char* ptr,
+               int length)
+  {
+    return length;
+  }
+
+  int _read_r([[maybe_unused]] FILE* file,
+              [[maybe_unused]] char* ptr,
+              int length)
+  {
+    return length;
+  }
+
+  // Dummy implementation of _lseek
+  int _lseek_r([[maybe_unused]] int file,
+               [[maybe_unused]] int ptr,
+               [[maybe_unused]] int dir)
+  {
+    return 0;
+  }
+
+  // Dummy implementation of close
+  int _close_r([[maybe_unused]] int file)
+  {
+    return -1;
+  }
+
+  // Dummy implementation of isatty
+  int _isatty_r([[maybe_unused]] int file)
+  {
+    return 1;
+  }
+}

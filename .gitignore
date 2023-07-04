@@ -31,6 +31,28 @@
 *.out
 *.app
 
-# Build directories
+# IDEs
+.vscode/
+archives/
+
+# GDB
+*/**/.gdb_history
+
+# Artifacts
 build/
-build/*
+docs/api/
+docs/doxygen_warn.log
+tools/
+
+# lint artifacts
+ncc.stderr
+
+# OS files
+.DS_Store
+
+# Conan Files
+graph_info.json
+conaninfo.txt
+conan.lock
+conanbuildinfo.txt
+CMakeUserPresets.json

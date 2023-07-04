@@ -14,11 +14,21 @@
 
 #pragma once
 
-#define BOOST_LEAF_EMBEDDED
-#define BOOST_LEAF_NO_THREADS
+#include <libhal/functional.hpp>
+#include <libhal/output_pin.hpp>
+#include <libhal/serial.hpp>
+#include <libhal/steady_clock.hpp>
 
-#include <string_view>
+struct application_framework
+{
+  hal::output_pin* led;
+  hal::serial* console;
+  hal::steady_clock* clock;
+  hal::callback<void()> reset;
+};
 
-namespace hal::config {
-constexpr std::string_view platform = "lpc4078";
-} // namespace hal::config
+// Application function must be implemented by one of the compilation units
+// (.cpp) files.
+hal::status initialize_processor();
+hal::result<application_framework> initialize_platform();
+hal::status application(application_framework& p_framework);
