@@ -1,45 +1,46 @@
 # libhal-starter
 
-## 🧰 Setup
+Before getings started, if you haven't used libhal before, follow the
+[Getting Started](https://libhal.github.io/2.1/) guide.
 
-1. [Setup libhal tools](https://libhal.github.io/prerequisites/)
-2. Add `libhal-trunk` remote conan server
+To build the project
 
-    ```bash
-    conan remote add libhal-trunk https://libhal.jfrog.io/artifactory/api/conan/trunk-conan
-    ```
-
-    > The "trunk" repository represents the latest packaged code based on
-    > github.
-    >
-    > This command will insert `libhal-trunk` as the first server to check
-    > before checking the conan center index. The second command will enable
-    > revision mode which is required to use the `libhal-trunk` conan package
-    > repository.
-
-## 🏗️ Building Project
-
-### Debug Build
-
-Debug builds are helpful as they reduce the amount of compile time optimizations
-in order to make the debugging experience better. This comes at the cost of
-slower code and larger binary sizes.
-
-To build with this level:
-
-```
-conan build . -s build_type=Debug
+```bash
+conan build . -pr <target_name> -s build_type=<build_type>
 ```
 
-### Release Build
+For the `lpc4078` with `MinSizeRel`
 
-Release builds are harder to debug but are faster and have smaller binary sizes.
-
-To build with this level:
-
+```bash
+conan build . -pr lpc4078 -s build_type=MinSizeRel
 ```
-conan build . -s build_type=Release
-```
+
+## Supported platforms
+
+- lpc4078
+- lpc4074
+
+## How to Modify the Project
+
+### `main.cpp`
+
+
+
+### `application.cpp`
+
+
+
+### `application.hpp`
+
+
+
+### `CMakeLists.txt`
+
+
+
+### `platforms/` directory
+
+
 
 ## Contributing
 
@@ -54,4 +55,3 @@ Apache 2.0; see [`LICENSE`](LICENSE) for details.
 This project is not an official Google project. It is not supported by
 Google and Google specifically disclaims all warranties as to its quality,
 merchantability, or fitness for a particular purpose.
-
