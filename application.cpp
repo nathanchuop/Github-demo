@@ -4,13 +4,13 @@
 
 #include "application.hpp"
 
-hal::status application(application_framework& p_framework)
+hal::status application(application_resources& p_resources)
 {
   using namespace std::literals;
 
-  auto& led = *p_framework.led;
-  auto& clock = *p_framework.clock;
-  auto& console = *p_framework.console;
+  auto& led = *p_resources.led;
+  auto& clock = *p_resources.clock;
+  auto& console = *p_resources.console;
 
   while (true) {
     // Print message

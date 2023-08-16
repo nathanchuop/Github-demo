@@ -25,12 +25,11 @@
 
 hal::status initialize_processor()
 {
-  hal::cortex_m::initialize_data_section();
-
+  // Handled by picolibc's crt0.s
   return hal::success();
 }
 
-hal::result<application_framework> initialize_platform()
+hal::result<application_resources> initialize_platform()
 {
   using namespace hal::literals;
 
@@ -50,7 +49,7 @@ hal::result<application_framework> initialize_platform()
 
   static auto led = HAL_CHECK(hal::lpc40::output_pin::get(1, 10));
 
-  return application_framework{
+  return application_resources{
     .led = &led,
     .console = &uart0,
     .clock = &counter,

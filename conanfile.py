@@ -16,6 +16,8 @@ from conan import ConanFile
 from conan.tools.cmake import CMake, cmake_layout
 from conan.errors import ConanInvalidConfiguration
 
+required_conan_version = ">=2.0.6"
+
 
 class application(ConanFile):
     settings = "compiler", "build_type", "os", "arch"
@@ -24,15 +26,16 @@ class application(ConanFile):
     default_options = {"platform": "unspecified"}
 
     def build_requirements(self):
+        self.tool_requires("cmake/3.27.1")
         self.tool_requires("libhal-cmake-util/[^1.0.0]")
 
     def requirements(self):
         # Application requirements
-        self.requires("libhal-util/[^2.0.0]")
+        self.requires("libhal-util/[^3.0.0]")
 
         # List of supported platforms
         if str(self.options.platform).startswith("lpc40"):
-            self.requires("libhal-lpc40/[^2.0.0]")
+            self.requires("libhal-lpc40/[^2.1.1]")
         else:
             raise ConanInvalidConfiguration(
                 f"The platform '{str(self.options.platform)}' is not"
