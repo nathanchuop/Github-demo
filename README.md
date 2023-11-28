@@ -66,7 +66,7 @@ def requirements(self):
     self.requires("libhal-util/[^2.0.0]")
 
     if str(self.options.platform).startswith("lpc40"):
-        self.requires("libhal-lpc40/[^2.0.0]")
+        self.requires("libhal-lpc40/[^2.1.5]")
     elif str(self.options.platform).startswith("stm32f1"):
         self.requires("libhal-stm32f1/[^2.0.0]")
     else:

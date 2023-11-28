@@ -31,11 +31,11 @@ class application(ConanFile):
 
     def requirements(self):
         # Application requirements
-        self.requires("libhal-util/[^3.0.0]")
+        self.requires("libhal-util/[^3.0.1]")
 
         # List of supported platforms
         if str(self.options.platform).startswith("lpc40"):
-            self.requires("libhal-lpc40/[^2.1.1]")
+            self.requires("libhal-lpc40/[^2.1.5]")
         else:
             raise ConanInvalidConfiguration(
                 f"The platform '{str(self.options.platform)}' is not"
