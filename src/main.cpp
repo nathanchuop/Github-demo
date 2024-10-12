@@ -93,7 +93,7 @@ void application()
 
   hal::print(console, "Starting Application!\n");
   hal::print(console, "Will reset after ~10 seconds\n");
-
+  //a cool comment 
   for (int i = 0; i < 10; i++) {
     // Print message
     hal::print(console, "Hello, World\n");
