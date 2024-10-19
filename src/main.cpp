@@ -90,8 +90,8 @@ void application()
   auto& led = *resources.status_led.value();
   auto& clock = *resources.clock.value();
   auto& console = *resources.console.value();
-
-  hal::print(console, "Starting five Application!\n");
+//cool
+  hal::print(console, "Starting hi Application!\n");
   hal::print(console, "Starting the Application!\n");
   hal::print(console, "Will reset after ~10 seconds\n");
   for (int i = 0; i < 10; i++) {
