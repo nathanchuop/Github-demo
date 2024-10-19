@@ -92,7 +92,7 @@ void application()
   auto& console = *resources.console.value();
 
   hal::print(console, "Starting Three Application!\n");
-  hal::print(console, "Starting Six Application!\n");
+  hal::print(console, "Starting the Application!\n");
   hal::print(console, "Will reset after ~10 seconds\n");
   //a cool commen something cooler something epic
   for (int i = 0; i < 10; i++) {
